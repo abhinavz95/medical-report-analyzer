@@ -1,18 +1,46 @@
-[10:09:48] 🐍 Python dependencies were installed from /mount/src/medical-report-analyzer/requirements.txt using uv.
+import os
+import torch
+from .document import PDF_Processing
+from .ocr_model import OCR
+from .llms import LLM
 
-Check if streamlit is installed
+class Pipeline:
+    def __init__(self):
+        self.cwd = os.getcwd()
+        self.model_path = os.path.join(self.cwd, "models", "detection_model.pt")
+    
+    def load_model(self):
+        # Create the models directory if it doesn't exist
+        os.makedirs(os.path.dirname(self.model_path), exist_ok=True)
 
-Streamlit is already installed
+        # Check if the model file exists
+        if not os.path.exists(self.model_path):
+            print("Downloading detection model, please wait. This may take several minutes depending upon your network connection.")
+            # Example: torch.hub.download_url_to_file(url, self.model_path)
+            # For now, this is a placeholder for downloading the model
+            # torch.save(torch_model, self.model_path)  # Save model here
+        else:
+            print("Model already downloaded.")
 
-[10:09:50] 📦 Processed dependencies!
+        # Load the model
+        self.model = torch.load(self.model_path, map_location="cpu")
+        self.model.eval()
 
+    def process(self, file, file_type):
+        self.load_model()  # Ensure the model is loaded before processing
+        try:
+            print("Started processing...")
+            if file_type.lower() == "pdf":
+                image = PDF_Processing.pdf_to_image(file)
+            else:
+                image = PDF_Processing.load_image(file)
+                
+            # Extract text and process
+            text = OCR.extract_text(image)
+            json_text = LLM().get_json(input_data=text, key="json")
+            final = LLM().get_json(input_data=json_text)
+            return final
+        except Exception as e:
+            print(e)
+            return f"An error occurred: {e}"
 
-
-
-2024-11-10 10:10:11.067 Examining the path of torch.classes raised: Tried to instantiate class '__path__._path', but it does not exist! Ensure that it is registered via torch::class_
-
-Neither CUDA nor MPS are available - defaulting to CPU. Note: This module is much faster with a GPU.
-
-Downloading detection model, please wait. This may take several minutes depending upon your network connection.
-
-started
