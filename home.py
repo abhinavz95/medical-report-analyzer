@@ -39,8 +39,8 @@ if page == "Medical Report Analyzer":
         # Button to process the report
         if st.button("Process"):
             if file is not None:
-                file_type = file.name.split(".")[-1]
-                # Pass file and file_type as positional arguments
+                file_type = file.name.split(".")[-1].lower()
+                # Pass file and file_type as arguments
                 response = pipeline.process(file, file_type)
                 st.write(response)  # Display the processed response
             else:
