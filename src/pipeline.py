@@ -1,25 +1,18 @@
-from .document import PDF_Processing 
-from .ocr_model import OCR
-from .llms import LLM
-import os
+[10:09:48] 🐍 Python dependencies were installed from /mount/src/medical-report-analyzer/requirements.txt using uv.
 
-class Pipeline:
-    def __init__(self):
-        self.cwd = os.getcwd()
+Check if streamlit is installed
 
-    def process(self, file, file_type):  # Ensure 'self' is included
-        try:
-            print("started")
-            if file_type.lower() == "pdf":
-                image = PDF_Processing.pdf_to_image(file)
-            else:
-                image = PDF_Processing.load_image(file)
-                
-            # Extract text and process
-            text = OCR.extract_text(image)
-            json_text = LLM().get_json(input_data=text, key="json")
-            final = LLM().get_json(input_data=json_text)
-            return final
-        except Exception as e:
-            print(e)
-            return f"An error occurred: {e}"
+Streamlit is already installed
+
+[10:09:50] 📦 Processed dependencies!
+
+
+
+
+2024-11-10 10:10:11.067 Examining the path of torch.classes raised: Tried to instantiate class '__path__._path', but it does not exist! Ensure that it is registered via torch::class_
+
+Neither CUDA nor MPS are available - defaulting to CPU. Note: This module is much faster with a GPU.
+
+Downloading detection model, please wait. This may take several minutes depending upon your network connection.
+
+started
