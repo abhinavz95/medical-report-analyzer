@@ -7,7 +7,7 @@ class Pipeline:
     def __init__(self):
         self.cwd = os.getcwd()
 
-    def process(self, file, file_type):  # Added 'self' and renamed 'type' to 'file_type'
+    def process(self, file, file_type):  # Ensure 'self' is included
         try:
             print("started")
             if file_type.lower() == "pdf":
