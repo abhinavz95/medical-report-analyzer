@@ -40,7 +40,8 @@ if page == "Medical Report Analyzer":
         if st.button("Process"):
             if file is not None:
                 file_type = file.name.split(".")[-1]
-                response = pipeline.process(file=file, type=file_type)  # Use the cached pipeline
+                # Pass file and file_type as positional arguments
+                response = pipeline.process(file, file_type)
                 st.write(response)  # Display the processed response
             else:
                 st.warning("Please upload a file.", icon="⚠️")
@@ -52,7 +53,7 @@ elif page == "About Me":
     # Add information about the developer
     st.write("### Developer Profile")
     st.write("""
-    **Name**: abhinav pal 
+    **Name**: Vaibhav Chaudhary  
     **Role**: ML & AI Enthusiast  
     **Skills**:  
     - Machine Learning  
