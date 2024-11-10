@@ -1,4 +1,4 @@
-import streamlit as st  
+import streamlit as st   
 from src.pipeline import Pipeline
 from dotenv import load_dotenv
 import os
@@ -16,6 +16,14 @@ api_key = os.getenv("GOOGLE_API_KEY")
 st.sidebar.title("Navigation")
 page = st.sidebar.selectbox("Go to", ["Medical Report Analyzer", "About Me"])
 
+# Cache the Pipeline to avoid reloading/re-initializing on every rerun
+@st.cache_resource
+def load_pipeline():
+    return Pipeline()
+
+# Initialize the pipeline once and reuse it
+pipeline = load_pipeline()
+
 # Medical Report Analyzer Page
 if page == "Medical Report Analyzer":
     st.markdown("<h1 style='text-align: center;'>Medical Report Analyzer 🔎</h1>", unsafe_allow_html=True)
@@ -32,7 +40,7 @@ if page == "Medical Report Analyzer":
         if st.button("Process"):
             if file is not None:
                 file_type = file.name.split(".")[-1]
-                response = Pipeline.process(file=file, type=file_type)
+                response = pipeline.process(file=file, type=file_type)  # Use the cached pipeline
                 st.write(response)  # Display the processed response
             else:
                 st.warning("Please upload a file.", icon="⚠️")
@@ -44,7 +52,7 @@ elif page == "About Me":
     # Add information about the developer
     st.write("### Developer Profile")
     st.write("""
-    **Name**: Vaibhav Chaudhary  
+    **Name**: abhinav pal 
     **Role**: ML & AI Enthusiast  
     **Skills**:  
     - Machine Learning  
