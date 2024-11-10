@@ -19,10 +19,10 @@ page = st.sidebar.selectbox("Go to", ["Medical Report Analyzer", "About Me"])
 # Cache the Pipeline to avoid reloading/re-initializing on every rerun
 @st.cache_resource
 def load_pipeline():
-    return Pipeline()
+    return Pipeline()  # Ensure this is creating an instance
 
 # Initialize the pipeline once and reuse it
-pipeline = load_pipeline()
+pipeline = load_pipeline()  # This should be an instance now
 
 # Medical Report Analyzer Page
 if page == "Medical Report Analyzer":
