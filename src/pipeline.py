@@ -23,10 +23,3 @@ class Pipeline:
         except Exception as e:
             print(e)
             return f"An error occurred: {e}"
-
-# Testing code for main
-if __name__ == "__main__":
-    path = "test_docs/CBC-test-report-format-example-sample-template-Drlogy-lab-report.pdf"
-    pipeline = Pipeline()
-    result = pipeline.process(path, "pdf")  # Pass the file type as well
-    print(result)
