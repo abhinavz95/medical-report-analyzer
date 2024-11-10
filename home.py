@@ -1,4 +1,4 @@
-import streamlit as st   
+import streamlit as st
 from src.pipeline import Pipeline
 from dotenv import load_dotenv
 import os
@@ -19,7 +19,9 @@ page = st.sidebar.selectbox("Go to", ["Medical Report Analyzer", "About Me"])
 # Cache the Pipeline to avoid reloading/re-initializing on every rerun
 @st.cache_resource
 def load_pipeline():
-    return Pipeline()  # Ensure this is creating an instance
+    pipeline = Pipeline()  # Ensure this is creating an instance
+    pipeline.load_model()  # Make sure model is loaded when pipeline is created
+    return pipeline
 
 # Initialize the pipeline once and reuse it
 pipeline = load_pipeline()  # This should be an instance now
