@@ -7,7 +7,7 @@ import os
 load_dotenv()
 
 # Set page configuration at the very start
-st.set_page_config(page_title="🩺 Medical Report Analyzer", page_icon="*")
+st.set_page_config(page_title=" Medical Report Analyzer", page_icon="*")
 
 # Retrieve the API key from environment variables
 api_key = os.getenv("GOOGLE_API_KEY")
@@ -55,7 +55,7 @@ elif page == "About Me":
     # Add information about the developer
     st.write("### Developer Profile")
     st.write("""
-    **Name**: Vaibhav Chaudhary  
+    **Name**:   abhinav pal
     **Role**: ML & AI Enthusiast  
     **Skills**:  
     - Machine Learning  
